@@ -9,9 +9,15 @@ import db.helperClasses.SubjectMeanInfo;
 import db.repositories.StudentRepository;
 import db.repositories.SubjectRepository;
 
+//Nasze
+import db.entities.Account;
+import db.helperClasses.AccountRepository;
+
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -43,7 +49,29 @@ public class ServerApp {
 
     public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException {
         String message;
+        AccountRepository accountRepository = new AccountRepository();
+        String accountNumber = (String) input.readObject();
         switch (op) {
+            case CREATE_ACCOUNT:
+                Account newAccount = new Account(/* account details */);
+                String creationMessage = accountRepository.createAccount(newAccount);
+                output.writeObject(creationMessage);
+                break;
+            case ACCOUNT_BALANCE_PLN:
+                BigDecimal balancePLN = accountRepository.getAccountBalancePLN(accountNumber);
+
+                output.writeObject(balancePLN);
+                break;
+            case ACCOUNT_BALANCE_EUR:
+                BigDecimal balanceEUR = accountRepository.getAccountBalanceEUR(accountNumber);
+
+                output.writeObject(balanceEUR);
+                break;
+
+            //########################################################
+            //KOD CHŁOPAKÓW
+            //########################################################
+
             case SHOW_STUDENTS:
                 List<Student> allStudents = studentRepository.getAllStudents();
                 allStudents.forEach(System.out::println);

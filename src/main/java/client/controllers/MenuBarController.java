@@ -28,6 +28,23 @@ public class MenuBarController implements Controller {
     @FXML
     private MenuBar menuBar;
 
+    @FXML
+    private void toAccountAdd() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/main/account/addAccount.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Add Account");
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public void toSubjectList() throws IOException {
         ArrayList<Subject> subjects = Connector.getSubjects();
         SubjectListController.setSubjects(subjects);

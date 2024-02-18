@@ -43,10 +43,9 @@ public class Account implements Serializable {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<AccountOperation> receivedOperations = new LinkedHashSet<>();
 
-    public Account(String accountNumber, String name, String surname, BigDecimal balancePLN, BigDecimal balanceEUR, String phoneNumber) {
+    public Account(String accountNumber, String ownerName, BigDecimal balancePLN, BigDecimal balanceEUR, String phoneNumber) {
         this.accountNumber = accountNumber;
-        this.name = name;
-        this.surname = surname;
+        this.name = ownerName;
         this.balancePLN = balancePLN;
         this.balanceEUR = balanceEUR;
         this.phoneNumber = phoneNumber;
@@ -55,7 +54,6 @@ public class Account implements Serializable {
     public Account() {
     }
 
-    // Getters and setters
     public Long getId() {
         return id;
     }

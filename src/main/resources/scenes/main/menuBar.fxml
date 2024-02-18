@@ -5,32 +5,38 @@
 <?import javafx.scene.control.MenuItem?>
 
 <MenuBar fx:id="menuBar" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.MenuBarController">
-  <menus>
-      <Menu mnemonicParsing="false" text="Start">
-         <items>
-            <MenuItem mnemonicParsing="false" onAction="#toStart" text="Strona główna" />
-            <MenuItem mnemonicParsing="false" onAction="#logOut" text="Wyloguj" />
-         </items>
-      </Menu>
-    <Menu mnemonicParsing="false" text="Studenci">
-      <items>
-        <MenuItem mnemonicParsing="false" onAction="#toStudentList" text="Lista studentów" />
-            <MenuItem mnemonicParsing="false" onAction="#toStudentAdd" text="Dodaj studenta" />
-            <MenuItem mnemonicParsing="false" onAction="#toStudentDelete" text="Usuń studenta" />
-      </items>
-    </Menu>
-    <Menu mnemonicParsing="false" text="Przedmioty">
-      <items>
-        <MenuItem mnemonicParsing="false" onAction="#toSubjectList" text="Lista przedmiotów" />
-            <MenuItem mnemonicParsing="false" onAction="#toSubjectAdd"  text="Dodaj przedmiot" />
-            <MenuItem mnemonicParsing="false" onAction="#toSubjectDelete"  text="Usuń przedmiot" />
-            <MenuItem mnemonicParsing="false" onAction="#toMeanList" text="Uczęszczane przedmioty ze średnią ocen" />
-      </items>
-    </Menu>
-    <Menu mnemonicParsing="false" text="Zarządzanie">
-      <items>
-        <MenuItem mnemonicParsing="false" onAction="#toManaging" text="Modyfikuj przedmioty i oceny dla studenta" />
-      </items>
-    </Menu>
-  </menus>
+    <menus>
+        <Menu mnemonicParsing="false" text="Start">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#toStart" text="Strona główna" />
+                <MenuItem mnemonicParsing="false" onAction="#logOut" text="Wyloguj" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Studenci">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#toStudentList" text="Lista studentów" />
+                <MenuItem mnemonicParsing="false" onAction="#toStudentAdd" text="Dodaj studenta" />
+                <MenuItem mnemonicParsing="false" onAction="#toStudentDelete" text="Usuń studenta" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Przedmioty">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#toSubjectList" text="Lista przedmiotów" />
+                <MenuItem mnemonicParsing="false" onAction="#toSubjectAdd" text="Dodaj przedmiot" />
+                <MenuItem mnemonicParsing="false" onAction="#toSubjectDelete" text="Usuń przedmiot" />
+                <MenuItem mnemonicParsing="false" onAction="#toMeanList" text="Uczęszczane przedmioty ze średnią ocen" />
+            </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Zarządzanie">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#toManaging" text="Modyfikuj przedmioty i oceny dla studenta" />
+            </items>
+        </Menu>
+        <!-- New menu for managing accounts -->
+        <Menu mnemonicParsing="false" text="AccountManager">
+            <items>
+                <MenuItem mnemonicParsing="false" onAction="#toAccountAdd" text="Dodaj konto" />
+            </items>
+        </Menu>
+    </menus>
 </MenuBar>

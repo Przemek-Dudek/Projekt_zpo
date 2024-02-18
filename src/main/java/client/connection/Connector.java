@@ -1,9 +1,6 @@
 package client.connection;
 
-import db.entities.Operations;
-import db.entities.Student;
-import db.entities.StudentGrade;
-import db.entities.Subject;
+import db.entities.*;
 import db.helperClasses.ManageInfo;
 import db.helperClasses.SubjectMeanInfo;
 import javafx.scene.control.Alert;
@@ -141,6 +138,56 @@ public class Connector {
         }
 
         return receivedSubjects;
+    }
+
+    public static void addAccount(Account account) {
+        try {
+            out.writeObject(Operations.ADD_ACCOUNT);
+        } catch (IOException e) {
+            printConnectionLost();
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(account);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            String message = (String) input.readObject();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Operation Status for Adding Account:");
+            alert.setContentText(message);
+
+            alert.showAndWait();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteAccount(Integer accountNumber) {
+        try {
+            out.writeObject(Operations.DELETE_ACCOUNT);
+        } catch (IOException e) {
+            printConnectionLost();
+            throw new RuntimeException(e);
+        }
+        try {
+            out.writeObject(accountNumber);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            String message = (String) input.readObject();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Info");
+            alert.setHeaderText("Operation Status for Deleting Account:");
+            alert.setContentText(message);
+
+            alert.showAndWait();
+        } catch (ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void addStudent(Student student) {
