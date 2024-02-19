@@ -1,6 +1,7 @@
 package server;
 
 
+import client.ConnectionManager;
 import client.Operations;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,7 +17,7 @@ import java.util.concurrent.Executors;
  * Uruchamia serwer, oczekuje na połączenia i przekazuje je do obsługi w osobnych wątkach
  */
 public class ServerApp {
-    private static final int MAX_ATMS = 10;
+    private static final int MAX_ATMS = 2;
     public static void main(String[] args) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_ATMS);
@@ -165,11 +166,19 @@ public class ServerApp {
                 System.out.println(op);
                 handleOperation(op, in, out, clientId);
 
-//                in.close();
-//                out.close();
-//                socket.close();
+
             } catch (IOException e) {
-//                System.out.println(e.getMessage());
+                try {
+                    in.close();
+                    out.close();
+                    socket.close();
+                    return;
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+
+                } finally {
+                    return;
+                }
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
