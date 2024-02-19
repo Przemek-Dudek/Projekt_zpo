@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa PinController jest kontrolerem obsługującym operacje związane z wprowadzaniem numeru PIN przez użytkownika.
+ * Zawiera metody umożliwiające wprowadzenie numeru PIN oraz inicjalizację kontrolera.
+ */
 public class PinController {
 
     @FXML
@@ -23,6 +27,11 @@ public class PinController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda obsługująca wprowadzenie numeru PIN przez użytkownika.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void insertPin(ActionEvent event) throws IOException {
 
@@ -53,6 +62,9 @@ public class PinController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler. Dodaje listenera do pola tekstowego, który sprawdza, czy wprowadzane dane są liczbami oraz ogranicza długość wprowadzanego PINu do 4 cyfr.
+     */
     @FXML
     public void initialize() {
         pinNumber.textProperty().addListener(new ChangeListener<String>() {

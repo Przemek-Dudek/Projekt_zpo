@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa WelcomeController jest kontrolerem obsługującym operacje związane z ekranem powitalnym.
+ * Zawiera metody umożliwiające wprowadzenie numeru karty oraz inicjalizację kontrolera.
+ */
 public class WelcomeController {
 
     @FXML
@@ -23,6 +27,12 @@ public class WelcomeController {
     private Scene scene;
     private Parent root;
 
+
+    /**
+     * Metoda obsługująca wprowadzenie numeru karty przez użytkownika.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void insertCard(ActionEvent event) throws IOException {
 
@@ -53,6 +63,9 @@ public class WelcomeController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler. Dodaje listenera do pola tekstowego, który sprawdza, czy wprowadzane dane są liczbami.
+     */
     @FXML
     public void initialize() {
         cardNumber.textProperty().addListener(new ChangeListener<String>() {

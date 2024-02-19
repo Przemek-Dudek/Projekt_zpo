@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa TopUpPhoneController jest kontrolerem obsługującym operacje związane z doładowaniem telefonu.
+ * Zawiera metody umożliwiające potwierdzenie doładowania oraz anulowanie operacji.
+ */
 public class TopUpPhoneController {
 
     @FXML
@@ -24,6 +28,11 @@ public class TopUpPhoneController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda obsługująca potwierdzenie doładowania telefonu.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void confirmTopUp(ActionEvent event) throws IOException {
 
@@ -58,6 +67,11 @@ public class TopUpPhoneController {
 
     }
 
+    /**
+     * Metoda obsługująca potwierdzenie doładowania telefonu.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
@@ -69,6 +83,9 @@ public class TopUpPhoneController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler. Dodaje listenera do pól tekstowych, który sprawdza, czy wprowadzane dane są liczbami.
+     */
     @FXML
     public void initialize() {
         amount.textProperty().addListener(new ChangeListener<String>() {

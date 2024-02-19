@@ -12,8 +12,16 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa Queries zawiera metody do wykonywania operacji na bazie danych.
+ */
 public class Queries {
 
+    /**
+     * Metoda do weryfikacji numeru karty.
+     * @param cardNumber Numer karty do weryfikacji.
+     * @return Zwraca identyfikator konta powiązanego z kartą.
+     */
     public static int verifyCard(String cardNumber) {
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
@@ -50,6 +58,12 @@ public class Queries {
         return accountId;
     }
 
+    /**
+     * Metoda do weryfikacji numeru PIN.
+     * @param cardId Identyfikator karty.
+     * @param pin Numer PIN do weryfikacji.
+     * @return Zwraca true, jeśli numer PIN jest poprawny, w przeciwnym razie false.
+     */
     public static boolean verifyPin(int cardId, String pin) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -83,6 +97,11 @@ public class Queries {
         return result;
     }
 
+    /**
+     * Metoda do pobierania identyfikatora karty.
+     * @param cardNumber Numer karty.
+     * @return Zwraca identyfikator karty.
+     */
     public static int getCardId(String cardNumber) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -118,6 +137,11 @@ public class Queries {
         return cardId;
     }
 
+    /**
+     * Metoda do pobierania salda konta.
+     * @param accountId Identyfikator konta.
+     * @return Zwraca saldo konta.
+     */
     public static double getBalance(int accountId) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -145,6 +169,12 @@ public class Queries {
         return balance;
     }
 
+    /**
+     * Metoda do realizacji wypłaty.
+     * @param accountId Identyfikator konta.
+     * @param amount Kwota do wypłaty.
+     * @return Zwraca true, jeśli operacja się powiodła, w przeciwnym razie false.
+     */
     public static boolean withdraw(int accountId, double amount) {
 
 
@@ -196,6 +226,12 @@ public class Queries {
         return result;
     }
 
+    /**
+     * Metoda do realizacji wpłaty.
+     * @param accountId Identyfikator konta.
+     * @param amount Kwota do wpłaty.
+     * @return Zwraca true, jeśli operacja się powiodła, w przeciwnym razie false.
+     */
     public static boolean deposit(int accountId, double amount) {
 
         if (amount <= 0) return false;
@@ -242,6 +278,12 @@ public class Queries {
         return result;
     }
 
+    /**
+     * Metoda do realizacji wypłaty w euro.
+     * @param accountId Identyfikator konta.
+     * @param amount Kwota do wypłaty.
+     * @return Zwraca true, jeśli operacja się powiodła, w przeciwnym razie false.
+     */
     public static boolean eurWithdraw(int accountId, double amount) {
 
         if (amount <= 0) return false;
@@ -299,6 +341,12 @@ public class Queries {
         return result;
     }
 
+    /**
+     * Metoda do zmiany numeru PIN.
+     * @param cardId Identyfikator karty.
+     * @param newPin Nowy numer PIN.
+     * @return Zwraca true, jeśli operacja się powiodła, w przeciwnym razie false.
+     */
     public static boolean changePin(int cardId, String newPin) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -326,6 +374,13 @@ public class Queries {
         return result;
     }
 
+    /**
+     * Metoda do doładowania telefonu.
+     * @param accountId Identyfikator konta.
+     * @param phoneNumber Numer telefonu do doładowania.
+     * @param amount Kwota doładowania.
+     * @return Zwraca true, jeśli operacja się powiodła, w przeciwnym razie false.
+     */
     public static boolean topUpPhone(int accountId, String phoneNumber, double amount) {
 
         if (amount <= 0) return false;
@@ -375,6 +430,11 @@ public class Queries {
         return result;
     }
 
+    /**
+     * Metoda do pobierania listy transakcji.
+     * @param accountId Identyfikator konta.
+     * @return Zwraca listę transakcji.
+     */
     public static List<String> getTransactions(int accountId) {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();

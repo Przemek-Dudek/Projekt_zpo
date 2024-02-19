@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa DepositController jest kontrolerem obsługującym operacje wpłaty na konto użytkownika.
+ * Zawiera metody umożliwiające wprowadzenie kwoty wpłaty, potwierdzenie wpłaty oraz anulowanie operacji.
+ */
 public class DepositController {
 
     @FXML
@@ -23,6 +27,13 @@ public class DepositController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda obsługująca potwierdzenie wpłaty przez użytkownika.
+     * Jeśli wpłata jest prawidłowa, wyświetla komunikat o pomyślnej wpłacie.
+     * W przeciwnym razie wyświetla komunikat o błędzie.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void depositButton(ActionEvent event) throws IOException {
 
@@ -57,6 +68,12 @@ public class DepositController {
 
     }
 
+    /**
+     * Metoda obsługująca anulowanie operacji wpłaty przez użytkownika.
+     * Przenosi użytkownika z powrotem do widoku z opcjami.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
@@ -68,6 +85,10 @@ public class DepositController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler.
+     * Dodaje listener do pola tekstowego, który sprawdza, czy wprowadzona kwota jest poprawna.
+     */
     @FXML
     public void initialize() {
         amount.textProperty().addListener(new ChangeListener<String>() {

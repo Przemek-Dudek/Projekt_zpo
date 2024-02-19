@@ -4,6 +4,11 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 
+
+/**
+ * Zwraca hashcode tego obiektu.
+ * @return Hashcode tego obiektu.
+ */
 @Entity
 @Table(name = "debitcards", schema = "atm")
 public class DebitCardsEntity {
@@ -27,54 +32,108 @@ public class DebitCardsEntity {
     @Column(name = "pin")
     private String pin;
 
+    /**
+     * Zwraca ID karty debetowej.
+     * @return ID karty.
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Ustawia ID karty debetowej.
+     * @param id ID karty.
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * Zwraca ID konta, do którego przypisana jest karta.
+     * @return ID konta.
+     */
     public int getAccountId() {
         return accountId;
     }
 
+    /**
+     * Ustawia ID konta, do którego przypisana jest karta.
+     * @param accountId ID konta.
+     */
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 
+
+    /**
+     * Zwraca numer karty debetowej.
+     * @return Numer karty.
+     */
     public String getCardNumber() {
         return cardNumber;
     }
 
+    /**
+     * Ustawia numer karty debetowej.
+     * @param cardNumber Numer karty.
+     */
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
+    /**
+     * Zwraca datę ważności karty debetowej.
+     * @return Data ważności karty.
+     */
     public Date getExpirationDate() {
         return expirationDate;
     }
 
+    /**
+     * Ustawia datę ważności karty debetowej.
+     * @param expirationDate Data ważności karty.
+     */
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
     }
 
+    /**
+     * Zwraca kod CVV karty debetowej.
+     * @return Kod CVV.
+     */
     public String getCvv() {
         return cvv;
     }
 
+    /**
+     * Ustawia kod CVV karty debetowej.
+     * @param cvv Kod CVV.
+     */
     public void setCvv(String cvv) {
         this.cvv = cvv;
     }
 
+    /**
+     * Zwraca PIN karty debetowej.
+     * @return PIN karty.
+     */
     public String getPin() {
         return pin;
     }
 
+    /**
+     * Ustawia PIN karty debetowej.
+     * @param pin PIN karty.
+     */
     public void setPin(String pin) {
         this.pin = pin;
     }
 
+    /**
+     * Porównuje ten obiekt z podanym obiektem.
+     * @param o Obiekt do porównania.
+     * @return true jeśli obiekty są równe, false w przeciwnym wypadku.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,6 +152,10 @@ public class DebitCardsEntity {
         return true;
     }
 
+    /**
+     * Zwraca hashcode tego obiektu.
+     * @return Hashcode tego obiektu.
+     */
     @Override
     public int hashCode() {
         int result = id;

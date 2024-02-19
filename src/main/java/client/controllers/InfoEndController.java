@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa InfoEndController jest kontrolerem obsługującym operacje związane z końcem interakcji użytkownika z aplikacją.
+ * Zawiera metody umożliwiające ustawienie tekstu informacyjnego oraz zakończenie interakcji.
+ */
 public class InfoEndController {
 
     @FXML
@@ -20,11 +24,19 @@ public class InfoEndController {
     private Scene scene;
     private Parent root;
 
-
+    /**
+     * Metoda umożliwiająca ustawienie tekstu informacyjnego.
+     * @param text tekst do wyświetlenia
+     */
     public void setInfoText(String text) {
         infoText.setText(text);
     }
 
+    /**
+     * Metoda obsługująca zakończenie interakcji użytkownika z aplikacją.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void end(ActionEvent event) throws IOException {
 

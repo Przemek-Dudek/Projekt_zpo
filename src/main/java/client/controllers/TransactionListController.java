@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * Klasa TransactionListController jest kontrolerem obsługującym operacje związane z listą transakcji.
+ * Zawiera metody umożliwiające wyświetlanie listy transakcji oraz powrót do poprzedniego widoku.
+ */
 public class TransactionListController {
 
     private Stage stage;
@@ -23,9 +27,20 @@ public class TransactionListController {
     @FXML
     private ListView<String> transactionList;
 
+
+    /**
+     * Metoda ustawiająca listę transakcji do wyświetlenia.
+     * @param transactions lista transakcji do wyświetlenia
+     */
     public void setTransactionList(List<String> transactions) {
         transactionList.getItems().addAll(transactions);
     }
+
+    /**
+     * Metoda obsługująca powrót do poprzedniego widoku.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void back(ActionEvent event) throws IOException {
 

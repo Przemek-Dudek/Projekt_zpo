@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa WithdrawalController jest kontrolerem obsługującym operacje związane z wypłatą gotówki.
+ * Zawiera metody umożliwiające wprowadzenie kwoty do wypłaty, wypłatę gotówki oraz powrót do poprzedniego widoku.
+ */
 public class WithdrawalController {
 
     @FXML
@@ -23,6 +27,13 @@ public class WithdrawalController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda obsługująca operację wypłaty gotówki.
+     * Jeżeli operacja wypłaty zakończy się sukcesem, użytkownik jest przekierowywany do widoku z informacją o pomyślnej wypłacie.
+     * W przeciwnym razie, użytkownik jest przekierowywany do widoku z informacją o błędzie.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void withdrawalButton(ActionEvent event) throws IOException {
 
@@ -57,6 +68,11 @@ public class WithdrawalController {
 
     }
 
+    /**
+     * Metoda obsługująca operację powrotu do poprzedniego widoku.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
@@ -68,6 +84,9 @@ public class WithdrawalController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler. Dodaje listenera do pola tekstowego, który sprawdza, czy wprowadzane dane są liczbami.
+     */
     @FXML
     public void initialize() {
         amount.textProperty().addListener(new ChangeListener<String>() {

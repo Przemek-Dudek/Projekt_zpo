@@ -5,6 +5,10 @@ import java.io.*;
 import java.net.*;
 import java.util.List;
 
+/**
+ * Klasa ConnectionManager zarządza połączeniem z serwerem.
+ * Umożliwia nawiązanie i zakończenie połączenia, a także przesyłanie i odbieranie danych.
+ */
 public class ConnectionManager {
 
     private static boolean loading;
@@ -15,10 +19,18 @@ public class ConnectionManager {
     private static ObjectInputStream input = null;
     private static ObjectOutputStream out = null;
 
+    /**
+     * Metoda sprawdzająca, czy istnieje aktywne połączenie z serwerem.
+     * @return true jeśli połączenie jest aktywne, false w przeciwnym razie.
+     */
     public static boolean isConnected() {
         return connected;
     }
 
+
+    /**
+     * Metoda nawiązująca połączenie z serwerem.
+     */
     public static void connect() {
         try {
             loading = true;
@@ -45,6 +57,9 @@ public class ConnectionManager {
         connected = true;
     }
 
+    /**
+     * Metoda zamykająca połączenie z serwerem.
+     */
     public void disconnect() {
         try {
             input.close();
@@ -60,6 +75,11 @@ public class ConnectionManager {
         System.out.println("Disconnected");
     }
 
+    /**
+     * Metoda sprawdzająca poprawność numeru karty.
+     * @param cardNumber numer karty do sprawdzenia.
+     * @return true jeśli numer karty jest poprawny, false w przeciwnym razie.
+     */
     public static boolean veryfiyCardNumber(String cardNumber) {
 
         boolean message;
@@ -85,6 +105,11 @@ public class ConnectionManager {
 
     }
 
+    /**
+     * Metoda sprawdzająca poprawność numeru PIN.
+     * @param pinNumber numer PIN do sprawdzenia.
+     * @return true jeśli numer PIN jest poprawny, false w przeciwnym razie.
+     */
     public static boolean veryfiyPin(String pinNumber) {
 
         boolean message;
@@ -110,6 +135,10 @@ public class ConnectionManager {
 
     }
 
+    /**
+     * Metoda pobierająca saldo konta.
+     * @return saldo konta.
+     */
     public static double getBalance() {
 
         double balance;
@@ -131,7 +160,11 @@ public class ConnectionManager {
 
     }
 
-
+    /**
+     * Metoda realizująca wypłatę z konta.
+     * @param amount kwota do wypłaty.
+     * @return true jeśli operacja się powiodła, false w przeciwnym razie.
+     */
     public static boolean withdraw(String amount) {
 
         boolean result;
@@ -157,6 +190,12 @@ public class ConnectionManager {
         return result;
     }
 
+
+    /**
+     * Metoda realizująca wypłatę w euro z konta.
+     * @param amount kwota do wypłaty.
+     * @return true jeśli operacja się powiodła, false w przeciwnym razie.
+     */
     public static boolean eurWithdraw(String amount) {
 
         boolean result;
@@ -182,6 +221,11 @@ public class ConnectionManager {
         return result;
     }
 
+    /**
+     * Metoda realizująca wpłatę na konto.
+     * @param amount kwota do wpłaty.
+     * @return true jeśli operacja się powiodła, false w przeciwnym razie.
+     */
     public static boolean deposit(String amount) {
 
         boolean result;
@@ -207,6 +251,12 @@ public class ConnectionManager {
         return result;
     }
 
+    /**
+     * Metoda zmieniająca numer PIN.
+     * @param newPin1 nowy numer PIN.
+     * @param newPin2 powtórzenie nowego numeru PIN.
+     * @return true jeśli operacja się powiodła, false w przeciwnym razie.
+     */
     public static boolean changePin(String newPin1, String newPin2) {
 
         boolean result;
@@ -236,6 +286,13 @@ public class ConnectionManager {
         return result;
     }
 
+
+    /**
+     * Metoda realizująca doładowanie telefonu.
+     * @param phoneNumber numer telefonu do doładowania.
+     * @param amount kwota doładowania.
+     * @return true jeśli operacja się powiodła, false w przeciwnym razie.
+     */
     public static boolean topUpPhone(String phoneNumber, String amount) {
 
         boolean result;
@@ -266,6 +323,10 @@ public class ConnectionManager {
         return result;
     }
 
+    /**
+     * Metoda pobierająca listę transakcji.
+     * @return lista transakcji.
+     */
     public static List<String> getTransactionsList() {
 
         List<String> transactions;
@@ -287,6 +348,9 @@ public class ConnectionManager {
 
     }
 
+    /**
+     * Metoda wyświetlająca komunikat o błędzie połączenia.
+     */
     public static void printConnectionLost() {
         System.out.println("Connection error");
     }

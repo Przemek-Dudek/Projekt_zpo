@@ -9,6 +9,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Klasa ClientApp jest punktem wejścia do aplikacji klienckiej.
+ * Zawiera metodę main, która uruchamia aplikację, oraz metodę start, która jest odpowiedzialna za inicjalizację interfejsu użytkownika.
+ */
 public class ClientApp extends Application {
     public static void main(String[] args) {
         launch(args);

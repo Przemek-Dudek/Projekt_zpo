@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa InfoBackController jest kontrolerem obsługującym operacje powrotu do poprzedniego widoku.
+ * Zawiera metody umożliwiające ustawienie tekstu informacyjnego oraz powrót do poprzedniego widoku.
+ */
 public class InfoBackController {
 
 
@@ -21,9 +25,19 @@ public class InfoBackController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda umożliwiająca ustawienie tekstu informacyjnego.
+     * @param text tekst do wyświetlenia
+     */
     public void setInfoText(String text) {
         infoText.setText(text);
     }
+
+    /**
+     * Metoda obsługująca powrót do poprzedniego widoku.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void back(ActionEvent event) throws IOException {
 

@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa CurrentBalanceController jest kontrolerem obsługującym wyświetlanie aktualnego stanu konta użytkownika.
+ * Zawiera metody umożliwiające ustawienie aktualnego stanu konta oraz powrót do widoku z opcjami.
+ */
 public class CurrentBalanceController {
 
     private Stage stage;
@@ -21,9 +25,19 @@ public class CurrentBalanceController {
     @FXML
     private Label currentBalance;
 
+    /**
+     * Metoda umożliwiająca ustawienie aktualnego stanu konta użytkownika.
+     * @param balance stan konta do wyświetlenia
+     */
     public void setCurrentBalance(String balance) {
         currentBalance.setText(balance);
     }
+
+    /**
+     * Metoda obsługująca powrót do widoku z opcjami.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void backToOptions(ActionEvent event) throws IOException {
 

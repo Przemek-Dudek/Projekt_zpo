@@ -11,8 +11,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Klasa serwera
+ * Uruchamia serwer, oczekuje na połączenia i przekazuje je do obsługi w osobnych wątkach
+ */
 public class ServerApp {
-    private static final int MAX_ATMS = 2;
+    private static final int MAX_ATMS = 10;
     public static void main(String[] args) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_ATMS);
@@ -31,6 +35,15 @@ public class ServerApp {
         }
     }
 
+    /**
+     * Metoda obsługująca operacje klienta
+     * @param op - operacja do wykonania
+     * @param input - strumień wejściowy
+     * @param output - strumień wyjściowy
+     * @param clientId - identyfikator klienta
+     * @throws IOException - wyjątek wejścia/wyjścia
+     * @throws ClassNotFoundException - wyjątek klasa nie znaleziona
+     */
     public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output, String clientId) throws IOException, ClassNotFoundException {
 
         int cardId;
@@ -129,6 +142,10 @@ public class ServerApp {
         }
     }
 
+    /**
+     * Metoda obsługująca klienta
+     * @param socket - gniazdo
+     */
     private static void handleClient(Socket socket) {
         ObjectInputStream in;
         ObjectOutputStream out;

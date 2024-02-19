@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa ChangePinController jest kontrolerem obsługującym zmianę kodu PIN przez użytkownika.
+ * Zawiera metody umożliwiające wprowadzenie nowego kodu PIN, potwierdzenie zmiany oraz anulowanie operacji.
+ */
 public class ChangePinController {
 
     @FXML
@@ -24,6 +28,13 @@ public class ChangePinController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda obsługująca potwierdzenie zmiany kodu PIN przez użytkownika.
+     * Jeśli wprowadzone kody PIN są takie same, wyświetla komunikat o pomyślnej zmianie kodu PIN.
+     * W przeciwnym razie wyświetla komunikat o błędzie.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void confirmNewPin(ActionEvent event) throws IOException {
 
@@ -56,6 +67,12 @@ public class ChangePinController {
 
     }
 
+    /**
+     * Metoda obsługująca anulowanie operacji zmiany kodu PIN przez użytkownika.
+     * Przenosi użytkownika z powrotem do widoku z opcjami.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
@@ -67,6 +84,10 @@ public class ChangePinController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler.
+     * Dodaje listenery do pól tekstowych, które sprawdzają, czy wprowadzony kod PIN jest poprawny.
+     */
     @FXML
     public void initialize() {
         newPin1.textProperty().addListener(new ChangeListener<String>() {

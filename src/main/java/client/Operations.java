@@ -1,5 +1,9 @@
 package client;
 
+
+/**
+ * Typ wyliczeniowy reprezentujący operacje, które może wykonać użytkownik.
+ */
 public enum Operations {
     VERIFY_CARD,
     VERIFY_PIN,

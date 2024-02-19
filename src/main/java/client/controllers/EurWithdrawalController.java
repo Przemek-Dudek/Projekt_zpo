@@ -14,6 +14,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Klasa EurWithdrawalController jest kontrolerem obsługującym operacje wypłaty w walucie euro.
+ * Zawiera metody umożliwiające wprowadzenie kwoty wypłaty, potwierdzenie wypłaty oraz anulowanie operacji.
+ */
 public class EurWithdrawalController {
 
     @FXML
@@ -23,6 +27,13 @@ public class EurWithdrawalController {
     private Scene scene;
     private Parent root;
 
+    /**
+     * Metoda obsługująca potwierdzenie wypłaty przez użytkownika.
+     * Jeśli wypłata jest prawidłowa, wyświetla komunikat o pomyślnej wypłacie.
+     * W przeciwnym razie wyświetla komunikat o błędzie.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void withdrawalButton(ActionEvent event) throws IOException {
 
@@ -57,6 +68,13 @@ public class EurWithdrawalController {
 
     }
 
+
+    /**
+     * Metoda obsługująca anulowanie operacji wypłaty przez użytkownika.
+     * Przenosi użytkownika z powrotem do widoku z opcjami.
+     * @param event zdarzenie wywołane przez użytkownika
+     * @throws IOException jeśli wystąpi błąd podczas ładowania widoku
+     */
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
@@ -68,6 +86,10 @@ public class EurWithdrawalController {
 
     }
 
+    /**
+     * Metoda inicjalizująca kontroler.
+     * Dodaje listener do pola tekstowego, który sprawdza, czy wprowadzona kwota jest poprawna.
+     */
     @FXML
     public void initialize() {
         amount.textProperty().addListener(new ChangeListener<String>() {
