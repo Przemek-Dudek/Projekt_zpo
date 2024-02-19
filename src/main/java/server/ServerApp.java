@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
  * Uruchamia serwer, oczekuje na połączenia i przekazuje je do obsługi w osobnych wątkach
  */
 public class ServerApp {
-    private static final int MAX_ATMS = 2;
+    private static final int MAX_ATMS = 10;
     public static void main(String[] args) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_ATMS);
