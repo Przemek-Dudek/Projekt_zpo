@@ -9,5 +9,5 @@ module student.base.project {
     opens client;
     opens client.controllers;
     opens server;
-    opens entity;
+    opens server.entity;
 }

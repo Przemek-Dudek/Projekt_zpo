@@ -1,6 +1,8 @@
 package client.controllers;
 
-import client.Connector;
+import client.ConnectionManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +27,7 @@ public class ChangePinController {
     @FXML
     protected void confirmNewPin(ActionEvent event) throws IOException {
 
-        boolean res = Connector.changePin(newPin1.getText(), newPin2.getText());
+        boolean res = ConnectionManager.changePin(newPin1.getText(), newPin2.getText());
 
         if(res == true) {
             // switch scene to pin-view.fxml
@@ -65,6 +67,41 @@ public class ChangePinController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    @FXML
+    public void initialize() {
+        newPin1.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    newPin1.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                int maxLength = 4;
+                if (newPin1.getText().length() > maxLength) {
+                    String s = newPin1.getText().substring(0, maxLength);
+                    newPin1.setText(s);
+                }
+
+            }
+        });
+
+        newPin2.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    newPin2.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                int maxLength = 4;
+                if (newPin2.getText().length() > maxLength) {
+                    String s = newPin2.getText().substring(0, maxLength);
+                    newPin2.setText(s);
+                }
+
+            }
+        });
     }
 
 

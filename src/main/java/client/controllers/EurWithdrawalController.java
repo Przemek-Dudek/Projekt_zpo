@@ -1,6 +1,8 @@
 package client.controllers;
 
-import client.Connector;
+import client.ConnectionManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +29,7 @@ public class EurWithdrawalController {
 
         System.out.println(amount.getText());
 
-        boolean res = Connector.eurWithdraw(amount.getText());
+        boolean res = ConnectionManager.eurWithdraw(amount.getText());
 
         if(res == true) {
             // switch scene to pin-view.fxml
@@ -68,6 +70,21 @@ public class EurWithdrawalController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    @FXML
+    public void initialize() {
+        amount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    amount.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+
+
+            }
+        });
     }
 
 

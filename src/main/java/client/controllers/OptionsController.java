@@ -1,19 +1,15 @@
 package client.controllers;
 
-import client.Connector;
+import client.ConnectionManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OptionsController {
@@ -30,7 +26,7 @@ public class OptionsController {
         root = loader.load();
         CurrentBalanceController controller = loader.getController();
 
-        double balance = Connector.getBalance();
+        double balance = ConnectionManager.getBalance();
 
         controller.setCurrentBalance(String.valueOf(balance) + " " + "PLN");
 
@@ -133,7 +129,7 @@ public class OptionsController {
         root = loader.load();
         TransactionListController controller = loader.getController();
 
-        List<String> transactionsList = Connector.getTransactionsList();
+        List<String> transactionsList = ConnectionManager.getTransactionsList();
 
         controller.setTransactionList(transactionsList);
 

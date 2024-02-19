@@ -19,9 +19,9 @@ public class ClientApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Connector.connect();
+        ConnectionManager.connect();
 
-        if (!Connector.isConnected()) {
+        if (!ConnectionManager.isConnected()) {
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/views/connection-error-view.fxml")));
             Scene scene = new Scene(root);
             primaryStage.setTitle("Bankomat");

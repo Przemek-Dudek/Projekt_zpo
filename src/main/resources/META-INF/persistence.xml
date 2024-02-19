@@ -1,9 +1,9 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="default">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>entity.AccountsEntity</class>
-        <class>entity.DebitCardsEntity</class>
-        <class>entity.TransactionsEntity</class>
+        <class>server.entity.AccountsEntity</class>
+        <class>server.entity.DebitCardsEntity</class>
+        <class>server.entity.TransactionsEntity</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/atm"/>

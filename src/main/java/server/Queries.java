@@ -1,8 +1,8 @@
 package server;
 
-import entity.AccountsEntity;
-import entity.DebitCardsEntity;
-import entity.TransactionsEntity;
+import server.entity.AccountsEntity;
+import server.entity.DebitCardsEntity;
+import server.entity.TransactionsEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;

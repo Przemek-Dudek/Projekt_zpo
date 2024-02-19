@@ -3,12 +3,10 @@ package client;
 import javafx.scene.control.Alert;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.net.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Connector {
+public class ConnectionManager {
 
     private static boolean loading;
 

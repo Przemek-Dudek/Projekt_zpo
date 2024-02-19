@@ -1,6 +1,8 @@
 package client.controllers;
 
-import client.Connector;
+import client.ConnectionManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,21 +32,41 @@ public class PinController {
         System.out.println(pinNum);
 
         // send card number to server
-        boolean res = Connector.veryfiyPin(pinNum);
+        boolean res = ConnectionManager.veryfiyPin(pinNum);
 
 
-        if(res == true) {
+        if (res == true) {
             // switch scene to pin-view.fxml
             root = FXMLLoader.load(getClass().getResource("/views/options-view.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }  else {
+        } else {
             // show error message
             System.out.println("Card number is not valid");
         }
 
 
     }
+
+    @FXML
+    public void initialize() {
+        pinNumber.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    pinNumber.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                int maxLength = 4;
+                if (pinNumber.getText().length() > maxLength) {
+                    String s = pinNumber.getText().substring(0, maxLength);
+                    pinNumber.setText(s);
+                }
+
+            }
+        });
+    }
+
 }

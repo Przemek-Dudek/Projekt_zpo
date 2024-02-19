@@ -1,6 +1,8 @@
 package client.controllers;
 
-import client.Connector;
+import client.ConnectionManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +30,7 @@ public class TopUpPhoneController {
 
         System.out.println(amount.getText());
 
-        boolean res = Connector.topUpPhone(phone.getText(), amount.getText());
+        boolean res = ConnectionManager.topUpPhone(phone.getText(), amount.getText());
 
         if (res == true) {
             // switch scene to pin-view.fxml
@@ -68,6 +70,36 @@ public class TopUpPhoneController {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    @FXML
+    public void initialize() {
+        amount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    amount.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+
+        phone.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    phone.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                int maxLength = 9;
+                if (phone.getText().length() > maxLength) {
+                    String s = phone.getText().substring(0, maxLength);
+                    phone.setText(s);
+                }
+
+            }
+        });
 
     }
 

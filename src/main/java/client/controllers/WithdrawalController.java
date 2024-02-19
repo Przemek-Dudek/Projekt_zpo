@@ -1,6 +1,8 @@
 package client.controllers;
 
-import client.Connector;
+import client.ConnectionManager;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,9 +29,9 @@ public class WithdrawalController {
 
         System.out.println(amount.getText());
 
-        boolean res = Connector.withdraw(amount.getText());
+        boolean res = ConnectionManager.withdraw(amount.getText());
 
-        if(res == true) {
+        if (res == true) {
             // switch scene to pin-view.fxml
             // switch scene to pin-view.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info-end-view.fxml"));
@@ -42,7 +44,7 @@ public class WithdrawalController {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        }  else {
+        } else {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info-back-view.fxml"));
             root = loader.load();
             InfoBackController controller = loader.getController();
@@ -68,6 +70,20 @@ public class WithdrawalController {
         stage.setScene(scene);
         stage.show();
 
+    }
+
+    @FXML
+    public void initialize() {
+        amount.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    amount.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+
+            }
+        });
     }
 
 
