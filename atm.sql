@@ -4,8 +4,7 @@ DATABASE IF EXISTS atm;
 CREATE
 DATABASE atm;
 
-USE
-atm;
+USE atm;
 
 CREATE TABLE Accounts
 (
@@ -40,9 +39,9 @@ CREATE TABLE DebitCards
 
 -- Dodawanie przykładowych kont
 INSERT INTO Accounts (account_number, first_name, last_name, balance)
-VALUES ('12345678901234567890123456', 'Łukasz', 'Stanisławowski', 11000.00),
-       ('98765432109876543210987654', 'Jan', 'Kowalski', 2500.00),
-       ('99111122223333444455556666', 'Hanna', 'Nowak', 32000.00);
+VALUES ('12345678901234567890', 'Łukasz', 'Stanisławowski', 11000.00),
+       ('98765432109876543210', 'Jan', 'Kowalski', 2500.00),
+       ('99111122223333444455', 'Hanna', 'Nowak', 32000.00);
 
 -- Dodawanie przykładowych transakcji
 -- Wpłaty na konto o numerze '123456789'
