@@ -1,39 +1,41 @@
 package server;
 
-import db.entities.Grade;
-import db.entities.Operations;
-import db.entities.Student;
-import db.entities.Subject;
-import db.helperClasses.ManageInfo;
-import db.helperClasses.SubjectMeanInfo;
-import db.repositories.StudentRepository;
-import db.repositories.SubjectRepository;
+//import db.entities.Grade;
+
+import client.Operations;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+//import db.entities.Student;
+//import db.entities.Subject;
+//import db.repositories.StudentRepository;
+//import db.repositories.SubjectRepository;
 
 //Nasze
-import db.entities.Account;
-import db.helperClasses.AccountRepository;
-
-
+//import db.entities.Account;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.math.BigDecimal;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerApp {
-    private static final int MAX_CLIENTS = 3;
-    private static final StudentRepository studentRepository = new StudentRepository();
-    private static final SubjectRepository subjectRepository = new SubjectRepository();
+    private static final int MAX_CLIENTS = 100;
+//    private static final StudentRepository studentRepository = new StudentRepository();
+//    private static final SubjectRepository subjectRepository = new SubjectRepository();
 
     public static void main(String[] args) {
+
+//        try {
+//            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         ExecutorService executorService = Executors.newFixedThreadPool(MAX_CLIENTS);
 
-        try (ServerSocket serverSocket = new ServerSocket(8080)) {
+        try (ServerSocket serverSocket = new ServerSocket(32777)) {
             System.out.println("Serwer uruchomiony, oczekiwanie na połączenia...");
 
             while (true) {
@@ -47,135 +49,108 @@ public class ServerApp {
         }
     }
 
-    public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output) throws IOException, ClassNotFoundException {
-        String message;
-        AccountRepository accountRepository = new AccountRepository();
-        String accountNumber = (String) input.readObject();
+    public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output, String clientId) throws IOException, ClassNotFoundException {
+
+//        String cardNumber = null;
+//        int accountId;
+
+        int cardId;
+        boolean res;
+
         switch (op) {
-            case CREATE_ACCOUNT:
-                Account newAccount = new Account(/* account details */);
-                String creationMessage = accountRepository.createAccount(newAccount);
-                output.writeObject(creationMessage);
-                break;
-            case ACCOUNT_BALANCE_PLN:
-                BigDecimal balancePLN = accountRepository.getAccountBalancePLN(accountNumber);
+            case VERIFY_CARD:
 
-                output.writeObject(balancePLN);
-                break;
-            case ACCOUNT_BALANCE_EUR:
-                BigDecimal balanceEUR = accountRepository.getAccountBalanceEUR(accountNumber);
+                // read card number from client
+                String cardNumber = (String) input.readObject();
 
-                output.writeObject(balanceEUR);
-                break;
+                // verify card number
+                int accountId = Queries.verifyCard(cardNumber);
 
-            //########################################################
-            //KOD CHŁOPAKÓW
-            //########################################################
-
-            case SHOW_STUDENTS:
-                List<Student> allStudents = studentRepository.getAllStudents();
-                allStudents.forEach(System.out::println);
-                output.writeObject(allStudents);
-                break;
-            case ADD_STUDENT:
-                Student newStudent = (Student) input.readObject();
-                message = studentRepository.addStudent(newStudent);
-
-                allStudents = studentRepository.getAllStudents();
-                allStudents.forEach(System.out::println);
-                output.writeObject(message);
-                break;
-            case DELETE_STUDENT:
-                int index = (int) input.readObject();
-                message = studentRepository.removeStudent(index);
-
-                allStudents = studentRepository.getAllStudents();
-                allStudents.forEach(System.out::println);
-                output.writeObject(message);
-                break;
-            case SHOW_SUBJECTS:
-                List<Subject> allSubjects = subjectRepository.getAllSubjects();
-                allSubjects.forEach(System.out::println);
-                output.writeObject(allSubjects);
-                break;
-            case ADD_SUBJECT:
-                Subject newSubject = (Subject) input.readObject();
-                subjectRepository.addSubject(newSubject);
-
-                allSubjects = subjectRepository.getAllSubjects();
-                allSubjects.forEach(System.out::println);
-                break;
-            case DELETE_SUBJECT:
-                String name = (String) input.readObject();
-                message = subjectRepository.removeSubject(name);
-
-                allSubjects = subjectRepository.getAllSubjects();
-                allSubjects.forEach(System.out::println);
-                output.writeObject(message);
-                break;
-            case GET_SUBJECTS_WITH_GRADES:
-                List<Subject> subjects = subjectRepository.getSubjectsWithGrades();
-
-                List<SubjectMeanInfo> subjectsWithMeans = new ArrayList<>();
-
-                subjects.forEach(subject -> {
-                    String subjectName = subject.getName();
-                    final Float[] mean = {0f};
-                    final int[] sum = {0};
-                    subject.getStudentGrades().forEach(studentGrade -> {
-                        Grade grade = studentGrade.getGrade();
-                        if (grade != null) {
-                            sum[0] += 1;
-                            mean[0] += grade.getValue();
-                        }
-                    });
-                    mean[0] /= sum[0];
-
-                    subjectsWithMeans.add(new SubjectMeanInfo(subjectName, mean[0] == 0 ? null : mean[0]));
-                });
-
-                output.writeObject(subjectsWithMeans);
-                break;
-            case SHOW_STUDENTS_WITH_GRADES:
-                List<Student> studentsWithGrades = studentRepository.getAllStudentsWithGrades();
-                output.writeObject(studentsWithGrades);
-                break;
-            case EDIT_STUDENT_GRADE:
-                ManageInfo gradeInfo = (ManageInfo) input.readObject();
-                subjectRepository.updateGradeForStudent(gradeInfo.getStudentId(),
-                        gradeInfo.getSubjectId(), gradeInfo.getGradeValue());
-
-                List<Student> allStudentsWithGrades = studentRepository.getAllStudentsWithGrades();
-
-                output.writeObject(allStudentsWithGrades);
-                break;
-            case REMOVE_SUBJECT_FOR_STUDENT:
-                ManageInfo manageInfo = (ManageInfo) input.readObject();
-                subjectRepository.removeSubjectForStudent(manageInfo.getStudentId(),
-                        manageInfo.getSubjectId());
-
-                List<Student> allStudentWithGrades = studentRepository.getAllStudentsWithGrades();
-
-                output.writeObject(allStudentWithGrades);
-                break;
-            case ADD_SUBJECT_FOR_STUDENT:
-                ManageInfo info = (ManageInfo) input.readObject();
-
-                subjectRepository.addSubjectForStudent(info.getStudentId(), info.getSubjectId());
-
-                List<Student> allStudentsWithGrades1 = studentRepository.getAllStudentsWithGrades();
-
-                output.writeObject(allStudentsWithGrades1);
-                break;
-            case FIND_STUDENT:
-                Integer idx = (Integer) input.readObject();
-                Student student = studentRepository.getStudentByIdWithGrades(idx);
-                if(student == null){
-                    student = new Student(idx, "Brak studenta","o indeksie:", "Brak");
+                // send result to client
+                if (accountId > 0) {
+                    output.writeObject(true);
+                } else {
+                    output.writeObject(false);
                 }
-                student.getStudentGrades().forEach(System.out::println);
-                output.writeObject(student);
+
+                SessionManager.getSession(clientId).setAccountId(accountId);
+                cardId = Queries.getCardId(cardNumber);
+                SessionManager.getSession(clientId).setCardId(cardId);
+
                 break;
+
+            case VERIFY_PIN:
+
+                // read pin from client
+                String pin = (String) input.readObject();
+
+                cardId = SessionManager.getSession(clientId).getCardId();
+
+                // verify pin
+                boolean result = Queries.verifyPin(cardId, pin);
+
+                // send result to client
+                output.writeObject(result);
+                break;
+
+            case SHOW_BALANCE:
+                accountId = SessionManager.getSession(clientId).getAccountId();
+                double balance = Queries.getBalance(accountId);
+                output.writeObject(balance);
+                break;
+
+            case WITHDRAW:
+                accountId = SessionManager.getSession(clientId).getAccountId();
+                String amountString = (String) input.readObject();
+                double amount = Double.parseDouble(amountString);
+                res = Queries.withdraw(accountId, amount);
+                output.writeObject(res);
+                break;
+
+            case DEPOSIT:
+                accountId = SessionManager.getSession(clientId).getAccountId();
+                amountString = (String) input.readObject();
+                amount = Double.parseDouble(amountString);
+                res = Queries.deposit(accountId, amount);
+                output.writeObject(res);
+                break;
+
+            case EUR_WITHDRAW:
+                accountId = SessionManager.getSession(clientId).getAccountId();
+                amountString = (String) input.readObject();
+                amount = Double.parseDouble(amountString);
+                res = Queries.eurWithdraw(accountId, amount);
+                output.writeObject(res);
+                break;
+
+            case CHANGE_PIN:
+                cardId = SessionManager.getSession(clientId).getCardId();
+                String newPin1 = (String) input.readObject();
+                String newPin2 = (String) input.readObject();
+                if (!newPin1.equals(newPin2)) {
+                    output.writeObject(false);
+                    break;
+                }
+                res = Queries.changePin(cardId, newPin1);
+                output.writeObject(res);
+                break;
+
+            case TOP_UP_PHONE:
+                accountId = SessionManager.getSession(clientId).getAccountId();
+                String phone = (String) input.readObject();
+                amountString = (String) input.readObject();
+                amount = Double.parseDouble(amountString);
+                res = Queries.topUpPhone(accountId, phone, amount);
+                output.writeObject(res);
+                break;
+
+            case SHOW_TRANSACTIONS:
+
+                accountId = SessionManager.getSession(clientId).getAccountId();
+                List<String> transactions = Queries.getTransactions(accountId);
+                output.writeObject(transactions);
+                break;
+
             default:
                 System.out.println("Nieznana operacja");
         }
@@ -192,16 +167,18 @@ public class ServerApp {
             return;
         }
 
+        String clientId = socket.getRemoteSocketAddress().toString();
+
         while (true) {
             try {
                 Operations op = (Operations) in.readObject();
                 System.out.println(op);
-                handleOperation(op, in, out);
+                handleOperation(op, in, out, clientId);
 
 //                in.close();
 //                out.close();
 //                socket.close();
-            } catch(IOException e ){
+            } catch (IOException e) {
 //                System.out.println(e.getMessage());
             } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);

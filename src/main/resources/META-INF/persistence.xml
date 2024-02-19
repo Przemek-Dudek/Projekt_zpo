@@ -1,14 +1,12 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
-    <persistence-unit name="student_base">
+    <persistence-unit name="default">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-
-        <class>db.entities.Student</class>
-        <class>db.entities.Grade</class>
-        <class>db.entities.Subject</class>
-        <class>db.entities.StudentGrade</class>
+        <class>entity.AccountsEntity</class>
+        <class>entity.DebitCardsEntity</class>
+        <class>entity.TransactionsEntity</class>
 
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bazazpo"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/atm"/>
             <property name="jakarta.persistence.jdbc.user" value="root"/>
             <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
 
@@ -16,6 +14,9 @@
             <property name="hibernate.show_sql" value="true"/>
             <property name="format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/atm"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.connection.username" value="root"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="serverApp" type="Application" factoryName="Application" nameIsGenerated="true">
     <option name="MAIN_CLASS_NAME" value="server.serverApp" />
-    <module name="student-base-project" />
+    <module name="zpo_atm" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="server.*" />
