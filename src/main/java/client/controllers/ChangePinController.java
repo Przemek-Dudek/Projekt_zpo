@@ -30,7 +30,6 @@ public class ChangePinController {
         boolean res = ConnectionManager.changePin(newPin1.getText(), newPin2.getText());
 
         if(res == true) {
-            // switch scene to pin-view.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info-end-view.fxml"));
             root = loader.load();
             InfoEndController controller = loader.getController();
@@ -60,7 +59,6 @@ public class ChangePinController {
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
-        // switch scene
         root = FXMLLoader.load(getClass().getResource("/views/options-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

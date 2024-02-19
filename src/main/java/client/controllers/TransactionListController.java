@@ -29,7 +29,6 @@ public class TransactionListController {
     @FXML
     protected void back(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         root = FXMLLoader.load(getClass().getResource("/views/options-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

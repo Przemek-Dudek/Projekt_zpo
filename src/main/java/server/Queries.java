@@ -25,12 +25,10 @@ public class Queries {
         try {
             transaction.begin();
 
-//            find the card in the database by not using the primary key
             DebitCardsEntity debitCardsEntity = entityManager.createQuery("SELECT d FROM DebitCardsEntity d WHERE d.cardNumber = :cardNumber", DebitCardsEntity.class)
                     .setParameter("cardNumber", cardNumber)
                     .getSingleResult();
 
-            // if the card is found find the account number
             if (debitCardsEntity != null) {
                 accountId = debitCardsEntity.getAccountId();
             } else {
@@ -59,16 +57,10 @@ public class Queries {
 
         boolean result = false;
 
-        // print card number
-        System.out.println(cardId);
-
         try {
             transaction.begin();
 
             DebitCardsEntity debitCardsEntity = entityManager.find(DebitCardsEntity.class, cardId);
-
-            // print pin
-            System.out.println(debitCardsEntity.getPin());
 
             if (debitCardsEntity.getPin().equals(pin)) {
                 result = true;
@@ -76,7 +68,7 @@ public class Queries {
             } else {
                 result = false;
             }
-//
+
             transaction.commit();
         } catch (Exception e) {
             if (transaction.isActive()) {
@@ -154,9 +146,15 @@ public class Queries {
     }
 
     public static boolean withdraw(int accountId, double amount) {
+
+
+        if (amount <= 0) return false;
+        if (amount % 50 != 0) return false;
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
+
 
         double balance;
 
@@ -199,6 +197,10 @@ public class Queries {
     }
 
     public static boolean deposit(int accountId, double amount) {
+
+        if (amount <= 0) return false;
+        if (amount % 10 != 0) return false;
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -212,10 +214,10 @@ public class Queries {
 
             balance = entityManager.find(AccountsEntity.class, accountId).getBalance().doubleValue();
 
-//            if(balance >= amount) {
+
             balance += amount;
             entityManager.find(AccountsEntity.class, accountId).setBalance(BigDecimal.valueOf(balance));
-            // new transaction insert into query
+
             TransactionsEntity transactionsEntity = new TransactionsEntity();
             transactionsEntity.setAccountId(accountId);
             transactionsEntity.setTransactionType("deposit");
@@ -224,10 +226,7 @@ public class Queries {
 
             transaction.commit();
             result = true;
-//            } else {
-//                transaction.rollback();
-//                result = false;
-//            }
+
 
             transaction.commit();
         } catch (Exception e) {
@@ -244,6 +243,10 @@ public class Queries {
     }
 
     public static boolean eurWithdraw(int accountId, double amount) {
+
+        if (amount <= 0) return false;
+        if (amount % 50 != 0) return false;
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -268,7 +271,7 @@ public class Queries {
             if (balanceInEur >= amount) {
                 balance -= amountInPln;
                 entityManager.find(AccountsEntity.class, accountId).setBalance(BigDecimal.valueOf(balance));
-                // new transaction insert into query
+
                 TransactionsEntity transactionsEntity = new TransactionsEntity();
                 transactionsEntity.setAccountId(accountId);
                 transactionsEntity.setTransactionType("withdrawal");
@@ -324,6 +327,10 @@ public class Queries {
     }
 
     public static boolean topUpPhone(int accountId, String phoneNumber, double amount) {
+
+        if (amount <= 0) return false;
+        if (amount % 1 != 0) return false;
+
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
@@ -340,7 +347,7 @@ public class Queries {
             if (balance >= amount) {
                 balance -= amount;
                 entityManager.find(AccountsEntity.class, accountId).setBalance(BigDecimal.valueOf(balance));
-                // new transaction insert into query
+
                 TransactionsEntity transactionsEntity = new TransactionsEntity();
                 transactionsEntity.setAccountId(accountId);
                 transactionsEntity.setTransactionType("top-up");
@@ -384,7 +391,7 @@ public class Queries {
 
             int i = 1;
             for (TransactionsEntity t : transactionsEntities) {
-                transactions.add(i +". " + t.getTransactionType() + " " + t.getAmount() + " PLN " + t.getTransactionDate());
+                transactions.add(i + ". " + t.getTransactionType() + " " + t.getAmount() + " PLN " + t.getTransactionDate());
                 i++;
             }
 

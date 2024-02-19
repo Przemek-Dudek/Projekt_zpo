@@ -27,13 +27,10 @@ public class EurWithdrawalController {
     protected void withdrawalButton(ActionEvent event) throws IOException {
 
 
-        System.out.println(amount.getText());
-
         boolean res = ConnectionManager.eurWithdraw(amount.getText());
 
         if(res == true) {
-            // switch scene to pin-view.fxml
-            // switch scene to pin-view.fxml
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info-end-view.fxml"));
             root = loader.load();
             InfoEndController controller = loader.getController();
@@ -63,7 +60,6 @@ public class EurWithdrawalController {
     @FXML
     protected void cancel(ActionEvent event) throws IOException {
 
-        // switch scene
         root = FXMLLoader.load(getClass().getResource("/views/options-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);

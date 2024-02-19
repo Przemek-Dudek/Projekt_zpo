@@ -21,7 +21,6 @@ public class OptionsController {
     @FXML
     protected void showCurrentBalance(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/balance-view.fxml"));
         root = loader.load();
         CurrentBalanceController controller = loader.getController();
@@ -40,7 +39,6 @@ public class OptionsController {
     @FXML
     protected void showWithdrawal(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         root = FXMLLoader.load(getClass().getResource("/views/withdrawal-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -52,7 +50,6 @@ public class OptionsController {
     @FXML
     protected void showEurWithdrawal(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         root = FXMLLoader.load(getClass().getResource("/views/eur-withdrawal-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -64,7 +61,6 @@ public class OptionsController {
     @FXML
     protected void showDeposit(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         root = FXMLLoader.load(getClass().getResource("/views/deposit-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -73,22 +69,9 @@ public class OptionsController {
 
     }
 
-//    @FXML
-//    protected void showHistory(ActionEvent event) throws IOException {
-//
-//        // switch scene to pin-view.fxml
-//        root = FXMLLoader.load(getClass().getResource("/views/history-view.fxml"));
-//        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//
-//    }
-
     @FXML
     protected void showChangePin(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         root = FXMLLoader.load(getClass().getResource("/views/change-pin-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -100,7 +83,6 @@ public class OptionsController {
     @FXML
     protected void showPhoneTopUp(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         root = FXMLLoader.load(getClass().getResource("/views/top-up-phone-view.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
@@ -124,7 +106,6 @@ public class OptionsController {
     @FXML
     protected void showTransactionsList(ActionEvent event) throws IOException {
 
-        // switch scene to pin-view.fxml
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/transaction-list-view.fxml"));
         root = loader.load();
         TransactionListController controller = loader.getController();

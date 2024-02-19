@@ -28,7 +28,6 @@ public class InfoEndController {
     @FXML
     protected void end(ActionEvent event) throws IOException {
 
-            // switch scene
             root = FXMLLoader.load(getClass().getResource("/views/welcome-view.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);

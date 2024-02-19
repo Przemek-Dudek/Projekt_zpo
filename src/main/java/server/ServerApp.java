@@ -1,17 +1,7 @@
 package server;
 
-//import db.entities.Grade;
 
 import client.Operations;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-//import db.entities.Student;
-//import db.entities.Subject;
-//import db.repositories.StudentRepository;
-//import db.repositories.SubjectRepository;
-
-//Nasze
-//import db.entities.Account;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,18 +12,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class ServerApp {
-    private static final int MAX_CLIENTS = 100;
-//    private static final StudentRepository studentRepository = new StudentRepository();
-//    private static final SubjectRepository subjectRepository = new SubjectRepository();
-
+    private static final int MAX_ATMS = 2;
     public static void main(String[] args) {
 
-//        try {
-//            EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-        ExecutorService executorService = Executors.newFixedThreadPool(MAX_CLIENTS);
+        ExecutorService executorService = Executors.newFixedThreadPool(MAX_ATMS);
 
         try (ServerSocket serverSocket = new ServerSocket(32777)) {
             System.out.println("Serwer uruchomiony, oczekiwanie na połączenia...");
@@ -51,22 +33,16 @@ public class ServerApp {
 
     public static void handleOperation(Operations op, ObjectInputStream input, ObjectOutputStream output, String clientId) throws IOException, ClassNotFoundException {
 
-//        String cardNumber = null;
-//        int accountId;
-
         int cardId;
         boolean res;
 
         switch (op) {
             case VERIFY_CARD:
 
-                // read card number from client
                 String cardNumber = (String) input.readObject();
 
-                // verify card number
                 int accountId = Queries.verifyCard(cardNumber);
 
-                // send result to client
                 if (accountId > 0) {
                     output.writeObject(true);
                 } else {
@@ -81,15 +57,12 @@ public class ServerApp {
 
             case VERIFY_PIN:
 
-                // read pin from client
                 String pin = (String) input.readObject();
 
                 cardId = SessionManager.getSession(clientId).getCardId();
 
-                // verify pin
                 boolean result = Queries.verifyPin(cardId, pin);
 
-                // send result to client
                 output.writeObject(result);
                 break;
 
@@ -163,7 +136,7 @@ public class ServerApp {
             in = new ObjectInputStream(socket.getInputStream());
             out = new ObjectOutputStream(socket.getOutputStream());
         } catch (IOException e) {
-//            System.out.println(e.getMessage());
+            e.printStackTrace();
             return;
         }
 

@@ -28,20 +28,26 @@ public class WelcomeController {
 
         String cardNum = cardNumber.getText();
 
-        // send card number to server
         boolean res = ConnectionManager.veryfiyCardNumber(cardNum);
 
 
         if (res == true) {
-            // switch scene to pin-view.fxml
             root = FXMLLoader.load(getClass().getResource("/views/pin-view.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } else {
-            // show error message
-            System.out.println("Card number is not valid");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info-end-view.fxml"));
+            root = loader.load();
+            InfoEndController controller = loader.getController();
+
+            controller.setInfoText("Niepoprawna karta!");
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
 
 

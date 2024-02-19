@@ -1,6 +1,5 @@
 package client;
 
-import javafx.scene.control.Alert;
 
 import java.io.*;
 import java.net.*;
@@ -289,11 +288,6 @@ public class ConnectionManager {
     }
 
     public static void printConnectionLost() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Błąd połączenia");
-        alert.setHeaderText("Brak połączenia z serwerem");
-        alert.setContentText("Sprawdź połączenie z serwerem.");
-
-        alert.showAndWait();
+        System.out.println("Connection error");
     }
 }

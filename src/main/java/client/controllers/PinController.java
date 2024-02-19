@@ -28,23 +28,26 @@ public class PinController {
 
         String pinNum = pinNumber.getText();
 
-        // print pin
-        System.out.println(pinNum);
-
-        // send card number to server
         boolean res = ConnectionManager.veryfiyPin(pinNum);
 
 
         if (res == true) {
-            // switch scene to pin-view.fxml
             root = FXMLLoader.load(getClass().getResource("/views/options-view.fxml"));
             stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } else {
-            // show error message
-            System.out.println("Card number is not valid");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/info-end-view.fxml"));
+            root = loader.load();
+            InfoEndController controller = loader.getController();
+
+            controller.setInfoText("Kody PIN jest błędny!");
+
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
 
 

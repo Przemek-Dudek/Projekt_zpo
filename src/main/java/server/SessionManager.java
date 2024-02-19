@@ -9,7 +9,6 @@ public class SessionManager {
         return sessions.computeIfAbsent(clientId, k -> new Session());
     }
 
-    // end session
     public static void endSession(String clientId) {
         sessions.remove(clientId);
     }
